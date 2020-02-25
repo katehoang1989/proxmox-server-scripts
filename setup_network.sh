@@ -4,7 +4,7 @@
 #
 # The host server has one bridge for routing additional IPs
 # and another bridge for local IP's with NAT accessible via the main server IP
-mainserverip="217.79.181.100"
+mainserverip="192.168.10.109"
 
 getinfo() {
   read -e -p "Enter the IP address for your server: " -i "10.10.10.254" staticip
@@ -30,9 +30,9 @@ auto lo
 iface lo inet loopback
 
 # The primary network interface
-auto eth0
+auto enp8s0
 #Your static network configuration
-iface eth0 inet static
+iface enp8s0 inet static
 # Guest on vmbr1 behind NAT
 address $staticip
 netmask $netmask
@@ -71,7 +71,7 @@ hostname -F /etc/hostname
   systemctl restart networking; systemctl status networking
   echo ""
   echo "NETWORK:"
-  ip addr show dev eth0
+  ip addr show dev enp8s0
   echo "ROUTE:"
   ip route
   exit 0
